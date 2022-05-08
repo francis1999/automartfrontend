@@ -1,0 +1,9 @@
+body{
+    overflow-x: hidden;
+}
+.banner{height: 600px;margin-top: 55px;padding: 5px;justify-content: center;align-items: center;display: flex;}
+.w-full select{margin: 10px;width: 100px;height: 30px;background-color: black;color: #ffffff;}
+.logoo{width: 100px !important;}
+.row .col img{width: 100%}
+.form-control::placeholder{display: none !important;}
+
