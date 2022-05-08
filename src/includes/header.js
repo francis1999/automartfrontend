@@ -7,14 +7,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { setUserSession } from '../Session/userSession';
 
-
-
 const Header = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-
 
   const userLogin = {
     email: "",
@@ -38,7 +34,7 @@ const [user, setUser] = useState(userLogin)
             alert("You have Successfully Logged in");
             setUserSession(response.data.token);
             handleClose()
-            navigate('/dashboard/Index');
+            navigate('/dashboard/home');
         }
 
     })
@@ -86,7 +82,7 @@ const [user, setUser] = useState(userLogin)
                         
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name="password" placeholder="***********" autoFocus onChange={handleInputChange}  autoFocus  /></Form.Group>
+                        <Form.Control type="password" name="password" placeholder="***********" autoFocus onChange={handleInputChange} autoFocus /></Form.Group>
 
                         
                     </Form>
@@ -103,9 +99,5 @@ const [user, setUser] = useState(userLogin)
         </div>
     );
 };
-
-
-
-
 
 export default Header;

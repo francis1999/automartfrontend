@@ -6,6 +6,8 @@ import imagesback from "../images/imagesback.jpg_large"
 import { Navbar,Container,Nav,NavDropdown, Form,FormControl,Button, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { useState } from 'react';
+import Header from '../includes/header';
+import Footer from '../includes/footer';
 
 const Index = () => {
     const [show, setShow] = useState(false);
@@ -58,6 +60,7 @@ const Index = () => {
 
     return (
         <div>  
+            <Header/>
             <div style={{backgroundImage: `url(${imagesback})`}} className="banner">
                 <div className='d-block p-3 align-middle'>
                     {/* <div><img src={logow} alt="Logo Image"/></div> */}
@@ -155,11 +158,7 @@ const Index = () => {
                     </Modal.Footer>
                 </Modal> 
 
-
-
-
-
-
+                <Footer/>
                 
         </div>  
     );

@@ -6,4 +6,16 @@ body{
 .logoo{width: 100px !important;}
 .row .col img{width: 100%}
 .form-control::placeholder{display: none !important;}
+.right-div{background-color: #1A262B !important;height: 100vh;width: 15%;position: fixed;margin-top: 60px;color: white;}
+.right-div div{padding: 10px;background-color: black;margin-top: 10px;cursor: pointer;}
+.right-div div:hover{background-color: #3A4549;}
+.right-div div a{text-decoration: none;color: #ffffff;}
 
+.dashboard-header{width: 100vw;background-color: #F6383E;height: 60px;position:fixed;}
+.left-div{background-color: #f1f1f1;width: 80vw;margin-top: 60px;height: 100vh;margin-left: 270px;}
+.ml{margin-left: 5px;}
+.ml:nth-child(3) img{border-radius: 100%;width: 30px;height: 30px;}
+.ml:nth-child(2) img{border-radius: 100%;width: 20px;height: 20px;color: white;}
+.ml:nth-child(1) img{width: 20px;height: 20px;color: white;}
+.dashboard-logo img{width: 100px;}
+.right-nav {margin-right: 15px;margin-top: 5px;}
