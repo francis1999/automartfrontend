@@ -5,8 +5,110 @@ import bell from "../images/bell.svg"
 import envelope from "../images/envelope.svg"
 import logow from "../images/logow.png"
 import { Link } from 'react-router-dom';
+import { useTable } from 'react-table';
+import BasicTable from './Nav/BasicTable';
+import { useState,useEffect } from 'react';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import { GrFormView } from 'react-icons/gr';
+import { MdDelete } from 'react-icons/md';
+import { RiEdit2Fill } from 'react-icons/ri';
+import { useParams } from 'react-router';
 
+const data = localStorage.getItem("data");
 const Viewcars = () => {
+const [userCars, setUserCars]=useState([])
+const [loading, setLoading]=useState(true)
+const [getdata, setGetdata]=useState([])
+const { _id } = useParams();
+const handdleDelete = async (_id) => {
+    const getToken = localStorage.getItem("token");
+    const headers = {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${getToken}`
+    }
+    await axios.delete(`car/deletecar/${_id}`, { headers }).then(() => {
+        new Swal("Car Successfully Deleted");
+
+    })
+
+}
+
+useEffect(()=>{
+    const datas=JSON.parse(localStorage.getItem('data'))
+    if(datas){
+        setGetdata(datas)
+    }
+},[])
+
+
+useEffect(()=>{
+    let mounted=true
+    axios.get(`car/GetCarbyUserID/627716eabebe3cf75da69211`).then((res)=>{
+        if(mounted){
+            if(res.data.message==="success"){
+                setUserCars(res.data.data)
+                setLoading(false)
+                console.log(userCars)
+            }
+            else if(res.data.status==="500"){
+                new Swal("Warning", res.data.message,"error")
+            }
+        }
+    })
+   return()=>{
+    mounted=false
+   }
+})
+
+if(loading){
+    return(
+        <h3>Loading...</h3>
+    )
+}else
+{
+   var showallcars=''
+   showallcars=userCars.map((car, index)=>{
+       return(
+           <></>
+       )
+   })
+}
+
+
+const carlisttables = [
+    {
+        Header: 'DESCRIPTION',
+        accessor: 'description',
+        width:'90',
+        minWidth: 50,
+        maxWidth: 50,
+    },
+    {
+        Header: 'PRICE',
+        accessor: 'price'
+    },
+    {
+        Header: 'CONDITION',
+        accessor: 'condition'
+    },
+    {
+        Header: 'POST DATE',
+        accessor: 'createdAt'
+    },
+    {
+        Header: 'Action',
+        accessor: '_id',
+        Cell: (e) => {
+            return (
+                <>
+                    <span><span className="viewbutton"> <RiEdit2Fill /> </span> <span className="viewbutton"><Link to={`singlecar/${e.value}`}> <GrFormView /></Link></span> <span className="deletebutton" onClick={() => handdleDelete(e.value)}> <MdDelete /> </span></span>
+                </>
+            )
+        }
+    }
+]
+
     return (
         <div>
             <div className='dashboard-header justify-content-between d-flex p-2'>
@@ -24,13 +126,13 @@ const Viewcars = () => {
                 <div className='right-div'>
                     <div><Link to="/dashboard/home">DASHBOARD</Link></div>
                     <div><Link to="/dashboard/addcar">Add Car</Link></div>
-                    <div><Link to="/dashboard/car">View All Cars</Link></div>
+                    <div><Link to="#">View All Cars</Link></div>
                     <div><Link to="/dashboard/logout">Logout</Link></div>
                 </div>
-                <div className='left-div'>View Cars</div>
-
-            {/*  <Nav/> */}
-                
+                <div className='left-div'>
+                    <div className='mt-4 mb-4 fs-4'>All Cars</div>
+                    <BasicTable columnsProps={carlisttables} recordsProps={userCars} />
+                </div>
             </div>
         </div>
     );

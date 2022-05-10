@@ -5,17 +5,12 @@ export const getUser = () => {
     else return null;
 }
 export const getToken = () => {
-    return sessionStorage.getItem("token") || null;
     return localStorage.getItem("token") || null;
-    //sessionStorage.getItem("data");
+ 
 }
 export const setUserSession = (token, data) => {
-    sessionStorage.setItem("token", token);
-    sessionStorage.setItem("data", JSON.stringify(data));
-
     localStorage.setItem("token", token);
-    localStorage.setItem("data", JSON.stringify(data));
-
+    localStorage.setItem("data", JSON.stringify(data[0]._id));
 }
 export const removeUserSession = () => {
     sessionStorage.removeItem("token");

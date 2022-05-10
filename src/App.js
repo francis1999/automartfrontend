@@ -8,6 +8,7 @@ import Index from './components';
 import Home from './dashboard/home';
 import Addcar from './dashboard/addcar';
 import Viewcars from './dashboard/viewcars';
+import Singlecar from './dashboard/singlecar';
 
 
 
@@ -19,8 +20,12 @@ function App() {
         <Routes>
               <Route exact path="/" name="Home Page" element={<Index/>}/>
               <Route path="/dashboard/home" name="Home Page" element={<Home/>}/>
-              <Route path="/dashboard/addcar" name="Home Page" element={<Addcar/>}/>
+              <Route path="/dashboard/addcar" name="Add Car" element={<Addcar/>}/>
               <Route path="/dashboard/allcars" name="Home Page" element={<Viewcars/>}/>
+
+
+              <Route path="/dashboard/allcars/singlecar/:_id" element={<Singlecar/>} />
+              {/* <Route path="/dashboard/allcars" name="Home Page" element={<Viewcars/>}/> */}
 
               {/* <Route path="/business-automation" name="Business Automation" element={<Business/>}/> */}
         </Routes>

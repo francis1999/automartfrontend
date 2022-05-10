@@ -8,12 +8,16 @@ import axios from 'axios';
 import { useState } from 'react';
 import Header from '../includes/header';
 import Footer from '../includes/footer';
+import { useEffect } from 'react';
+import Swal from 'sweetalert2';
+import cart from "../images/cart.svg";
 
 const Index = () => {
     const [show, setShow] = useState(false);
+    const [loading, setLoading]=useState(true)
     const handleClose = () => setShow(false);
     const handleRegistration = () => setShow(true);
-
+    const [cars, setCars]=useState([])
     const userPost = {
         username: "",
         number: "",
@@ -58,10 +62,60 @@ const Index = () => {
         });
     }
 
+
+    useEffect(()=>{
+        let mounted=true
+        axios.get(`car/viewcars`).then((res)=>{
+            if(mounted){
+                if(res.data.message==="success"){
+                    setCars(res.data.diplayallCar)
+                    setLoading(false)
+                    //console.log(cars)
+                }
+                else if(res.data.status==="500"){
+                    new Swal("Warning", res.data.message,"error")
+                }
+            }
+        })
+       return()=>{
+        mounted=false
+       }
+    })
+
+    
+
+    if(loading){
+        return(
+            <h3>Loading...</h3>
+        )
+    }
+    else
+    {
+       var showallcars=''
+       showallcars=cars.map((car, index)=>{
+           return(
+             
+                <div className="col-md-3" key={index}>
+                    
+                        <div className="card">
+                        <div className="card-body">
+                        <img src={`https://automartbackend.herokuapp.com/${car.carimage[0].path}`} alt="" className='w-100'/>
+                        <div className="card-text text-success mt-4 fw-bold">&#8358; {car.price}.</div>
+                            <div className="card-title fw-bold" >{car.model.modelname}-{car.year.year}</div>
+                            <div className="card-text">{car.description}.</div>
+                            <a href="#" className="cartbutton"><img src={cart} alt="cart"/> Add to Cart</a>
+                        </div>
+                        </div>
+                    
+                </div>
+            
+           )
+       })
+    }
     return (
         <div>  
             <Header/>
-            <div style={{backgroundImage: `url(${imagesback})`}} className="banner">
+            <div style={{backgroundImage: `url(${lambo})`}} className="banner">
                 <div className='d-block p-3 align-middle'>
                     {/* <div><img src={logow} alt="Logo Image"/></div> */}
                     <div className='w-full bg-white p-3'><span className='fw-bold'>FIND YOUR EXHAUST:</span> 
@@ -83,25 +137,25 @@ const Index = () => {
 
                 
             </div>
-            <div className='bg-white mt-5'>
-                    <p className='text-center fs-5 fw-bold'>YOU ARE ONE STEP AWAY FROM OVER 250 000 VEHICLES AVAILABLE FOR SALE</p>
-                    <div class="container mb-4">
-                        <div class="row justify-content-center d-flex">
-                            <div class="col shadow p-3 mb-5 bg-white rounded">
-                                <img src={lambo} alt="" />
-                            </div>
-                            <div class="col shadow p-3 mb-5 bg-white rounded">
-                                <img src={lambo} alt="" />
-                            </div>
-                            <div class="col shadow p-3 mb-5 bg-white rounded">
-                                <img src={lambo} alt="" />
-                            </div>
-                            <div class="col shadow p-3 mb-5 bg-white rounded">
-                                <img src={lambo} alt="" />
-                            </div>
+
+            
+
+
+            <>
+            <p className='text-center fs-5 fw-bold mt-4'>YOU ARE ONE STEP AWAY FROM OVER 250 000 VEHICLES AVAILABLE FOR SALE</p>   
+               <div className='py-3'>
+                    <div className='container'>
+                        <div className='row'>
+                            {showallcars}
                         </div>
                     </div>
-            </div>
+               </div>
+               
+                       
+                      
+
+                  
+            </>
 
             <Modal show={show} onHide={handleClose} className="scrol">
                     <Modal.Header closeButton>
@@ -162,6 +216,8 @@ const Index = () => {
                 
         </div>  
     );
+
+        
 }
 
 export default Index;

@@ -6,6 +6,7 @@ import {Modal} from "react-bootstrap"
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { setUserSession } from '../Session/userSession';
+import Swal from 'sweetalert2';
 
 const Header = () => {
   const [show, setShow] = useState(false);
@@ -29,10 +30,11 @@ const [user, setUser] = useState(userLogin)
   const handleLogin = (e) => {
     e.preventDefault();
     axios.post('user/userlogin', user).then(response => {
-        if (response.data.message == "You have successfully Logged in") {
+        if (response.data.message === "You have successfully Logged in") {
             console.log(response.data);
-            alert("You have Successfully Logged in");
-            setUserSession(response.data.token);
+            new Swal("You have successfully Logged in")
+            setUserSession(response.data.token,response.data.data);
+          
             handleClose()
             navigate('/dashboard/home');
         }
@@ -40,12 +42,12 @@ const [user, setUser] = useState(userLogin)
     })
         .catch(error => {
             if (error.response.message === "Invaid Credentials" || error.response.status === 401) {
-                alert("Wrong Username and Password");
+              new Swal("Wrong Username and password", error.response.message)
             } else if(error.response.message === "Invalid Email Name" || error.response.status === 401) {
-                alert("Invalid Credentials");
+              new Swal("Invalid Credential", error.response.message)
                 navigate("index")
             }else if(error.response.message === "Empty Credentials Supplied!" || error.response.status === 500){
-              alert("Empty Credentials");
+              new Swal("Empty Credential", error.response.message)
             }
         })
 }
