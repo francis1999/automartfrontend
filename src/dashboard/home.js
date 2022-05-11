@@ -1,12 +1,19 @@
  import React from 'react';
+ import axios from 'axios';
 import Nav from './Nav/Nav';
 import passport from "../images/passport.jpeg"
 import bell from "../images/bell.svg"
 import envelope from "../images/envelope.svg"
 import logow from "../images/logow.png"
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import { removeUserSession } from '../Session/userSession';
 
 const Home = () => {
+    const getToken = localStorage.getItem("token");
+    const navigate = useNavigate();
+    
     return (
         <>
         <div className='dashboard-header justify-content-between d-flex p-2'>
@@ -25,7 +32,7 @@ const Home = () => {
                     <div><Link to="/dashboard/home">DASHBOARD</Link></div>
                     <div><Link to="/dashboard/addcar">Add Car</Link></div>
                     <div><Link to="/dashboard/allcars">View All Cars</Link></div>
-                    <div><Link to="/dashboard/logout">Logout</Link></div>
+                    <div><Link to="/dashboard/logout" onClick={handleLogout}>Logout</Link></div>
                 </div>
                 <div className='left-div'>hello left</div>
 
