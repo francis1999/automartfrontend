@@ -84,7 +84,7 @@ const [user, setUser] = useState(userLogin)
                         
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name="password" placeholder="***********" autoFocus onChange={handleInputChange} autoFocus /></Form.Group>
+                        <Form.Control type="password" name="password" placeholder="***********" autoFocus onChange={handleInputChange}/></Form.Group>
 
                         
                     </Form>
