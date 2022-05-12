@@ -100,11 +100,11 @@ const Index = (props) => {
                     
                         <div className="card">
                         <div className="card-body">
-                       <Link to={`singlecar/${car._id}`}> <img src={`https://automartbackend.herokuapp.com/${car.carimage[0].path}`} alt="" className='w-100'/></Link>
-                        <div className="card-text text-success mt-4 fw-bold">&#8358; {car.price}.</div>
+                       <Link to={`singlecar/${car._id}`}>{/*  <img src={`https://automartbackend.herokuapp.com/${car.carimage[0].path}`} alt="" className='w-100'/> */}</Link>
+                        {/* <div className="card-text text-success mt-4 fw-bold">&#8358; {car.price}.</div>
                             <div className="card-title fw-bold" >{car.model.modelname}-{car.year.year}</div>
                             <div className="card-text">{car.description}.</div>
-                            <a href="#" className="cartbutton"><img src={cart} alt="cart"/> Add to Cart</a>
+                            <a href="#" className="cartbutton"><img src={cart} alt="cart"/> Add to Cart</a> */}
                         </div>
                         </div>
                     
