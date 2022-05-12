@@ -11,8 +11,9 @@ import Footer from '../includes/footer';
 import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import cart from "../images/cart.svg";
+import { Link } from 'react-router-dom';
 
-const Index = () => {
+const Index = (props) => {
     const [show, setShow] = useState(false);
     const [loading, setLoading]=useState(true)
     const handleClose = () => setShow(false);
@@ -99,7 +100,7 @@ const Index = () => {
                     
                         <div className="card">
                         <div className="card-body">
-                        <img src={`https://automartbackend.herokuapp.com/${car.carimage[0].path}`} alt="" className='w-100'/>
+                       <Link to={`singlecar/${car._id}`}> <img src={`https://automartbackend.herokuapp.com/${car.carimage[0].path}`} alt="" className='w-100'/></Link>
                         <div className="card-text text-success mt-4 fw-bold">&#8358; {car.price}.</div>
                             <div className="card-title fw-bold" >{car.model.modelname}-{car.year.year}</div>
                             <div className="card-text">{car.description}.</div>

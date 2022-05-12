@@ -14,6 +14,9 @@ import { GrFormView } from 'react-icons/gr';
 import { MdDelete } from 'react-icons/md';
 import { RiEdit2Fill } from 'react-icons/ri';
 import { useParams } from 'react-router';
+import handleLogout from './home'
+import { useNavigate } from 'react-router-dom';
+import { removeUserSession } from '../Session/userSession';
 
 const data = localStorage.getItem("data");
 const Viewcars = () => {
@@ -41,7 +44,30 @@ useEffect(()=>{
     }
 },[])
 
+const getToken = localStorage.getItem("token");
+const navigate = useNavigate();
+const handleLogout = async (props) => {
+    
+    
+    await axios.post(`user/Logout`,{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${getToken}`
+        },
+    }).then(function (response) {
+        console.log(response);
+        if (response.data.message == "Logout") {
+            new Swal("You Have Successfully Logged Out!!!");
+            removeUserSession("data", "token");
+            navigate('/');
 
+        } else {
+            alert("Error Logout");
+        }
+    })
+
+};
 useEffect(()=>{
     let mounted=true
     axios.get(`car/GetCarbyUserID/627716eabebe3cf75da69211`).then((res)=>{
@@ -127,7 +153,7 @@ const carlisttables = [
                     <div><Link to="/dashboard/home">DASHBOARD</Link></div>
                     <div><Link to="/dashboard/addcar">Add Car</Link></div>
                     <div><Link to="#">View All Cars</Link></div>
-                    <div><Link to="/dashboard/logout">Logout</Link></div>
+                    <div><Link to="/dashboard/logout" onClick={handleLogout}>Logout</Link></div>
                 </div>
                 <div className='left-div'>
                     <div className='mt-4 mb-4 fs-4'>All Cars</div>

@@ -114,14 +114,14 @@ const Singlecar = () => {
                             <div className="col-md-3">
                                     <div className="card">
                                     <div className="card-body">
-                                 <img src={`https://automartbackend.herokuapp.com/${cars.carimage[0].path}`} alt="" className='w-100'/>
+                                 <img src={`https://automartbackend.herokuapp.com/${cars.carimage[2].path}`} alt="" className='w-100'/>
                                     </div>
                                     </div>
                             </div>
                             <div className="col-md-3">
                                     <div className="card">
                                     <div className="card-body">
-                                         <img src={`https://automartbackend.herokuapp.com/${cars.carimage[1].path}`} alt="" className='w-100'/>
+                                         <img src={`https://automartbackend.herokuapp.com/${cars.carimage[3].path}`} alt="" className='w-100'/>
                                     </div>
                                     </div>
                             </div>

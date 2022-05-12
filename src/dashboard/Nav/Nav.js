@@ -1,21 +1,39 @@
-/* import React from 'react';
-import { Navbar,Container,Nav,NavDropdown, Form,FormControl,Button } from 'react-bootstrap';
-import logow from "../images/logow.png"
-import { useState } from 'react';
-import {Modal} from "react-bootstrap"
+import React from 'react';
 import axios from 'axios';
+
+import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import { setUserSession } from '../Session/userSession';
+import { removeUserSession } from '../../Session/userSession';
 
+const Home = () => {
+   const getToken = localStorage.getItem("token");
+   const navigate = useNavigate();
+   const handleLogout = async () => {
+       
+       await axios.post(`user/Logout`,{
+           method: "POST",
+           headers: {
+               "Content-Type": "application/json",
+               'Authorization': `Bearer ${getToken}`
+           },
+       }).then(function (response) {
+           console.log(response);
+           if (response.data.message == "Logout") {
+               new Swal("You Have Successfully Logged Out!!!");
+               removeUserSession("data", "token");
+               navigate('/');
 
+           } else {
+               alert("Error Logout");
+           }
+       })
 
-const Nav = () => {
-    return (
-        <div>
-            this is my Navigation
-        </div>
-    );
+   };
+   return (
+       <>
+      
+       </>
+   );
 }
 
-export default Nav;
- */
+export default Home;

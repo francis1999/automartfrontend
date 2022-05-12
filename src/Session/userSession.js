@@ -6,7 +6,6 @@ export const getUser = () => {
 }
 export const getToken = () => {
     return localStorage.getItem("token") || null;
- 
 }
 export const setUserSession = (token, data) => {
     localStorage.setItem("token", token);

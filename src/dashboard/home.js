@@ -10,10 +10,10 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { removeUserSession } from '../Session/userSession';
 
-const Home = () => {
+const Home = (props) => {
     const getToken = localStorage.getItem("token");
     const navigate = useNavigate();
-    const handleLogout = async () => {
+    const handleLogout = async (props) => {
         
         
         await axios.post(`user/Logout`,{
@@ -27,7 +27,6 @@ const Home = () => {
             if (response.data.message == "Logout") {
                 new Swal("You Have Successfully Logged Out!!!");
                 removeUserSession("data", "token");
-                /* history.push("/"); */
                 navigate('/');
 
             } else {
@@ -58,7 +57,7 @@ const Home = () => {
                 </div>
                 <div className='left-div'>hello left</div>
 
-            {/*  <Nav/> */}
+          
                 
             </div>
         </>

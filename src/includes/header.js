@@ -32,7 +32,7 @@ const [user, setUser] = useState(userLogin)
     axios.post('user/userlogin', user).then(response => {
         if (response.data.message === "You have successfully Logged in") {
             console.log(response.data);
-            new Swal("You have successfully Logged in")
+            new Swal("success","You have successfully Logged in")
             setUserSession(response.data.token,response.data.data);
           
             handleClose()
