@@ -17,6 +17,7 @@ import { useParams } from 'react-router';
 import handleLogout from './home'
 import { useNavigate } from 'react-router-dom';
 import { removeUserSession } from '../Session/userSession';
+import { getUser } from '../Session/userSession';
 
 const data = localStorage.getItem("data");
 const Viewcars = () => {
@@ -24,13 +25,15 @@ const [userCars, setUserCars]=useState([])
 const [loading, setLoading]=useState(true)
 const [getdata, setGetdata]=useState([])
 const { _id } = useParams();
+const user=getUser()
+
 const handdleDelete = async (_id) => {
     const getToken = localStorage.getItem("token");
     const headers = {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${getToken}`
+        'Authorization': `Bearer ` + localStorage.getItem('token')
     }
-    await axios.delete(`car/deletecar/${_id}`, { headers }).then(() => {
+    await axios.delete(`deletecar/${_id}`, { headers }).then(() => {
         new Swal("Car Successfully Deleted");
 
     })
@@ -70,12 +73,16 @@ const handleLogout = async (props) => {
 };
 useEffect(()=>{
     let mounted=true
-    axios.get(`car/GetCarbyUserID/627716eabebe3cf75da69211`).then((res)=>{
+    const headers = {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ` + localStorage.getItem('token')
+    }
+    axios.get(`getcarbyuserid/${user._id}`,{headers}).then((res)=>{
         if(mounted){
             if(res.data.message==="success"){
                 setUserCars(res.data.data)
                 setLoading(false)
-                console.log(userCars)
+                
             }
             else if(res.data.status==="500"){
                 new Swal("Warning", res.data.message,"error")
@@ -142,9 +149,10 @@ const carlisttables = [
                 <div className='dashboard-logo'><img src={logow} alt="logo"/></div>
             </div>
             <div className='right-nav justify-content-between d-flex'>
-                <div className='ml'><img src={envelope} alt="Message Bell" /></div>
-                <div className='ml'><img src={bell} alt="notification Bell" /></div>
-                <div className='ml'><img src={passport} alt="profile Picture" /></div>
+            <div className='ml text-white'>{user.firstname}-{user.lastname}</div>
+                    <div className='ml'><img src={envelope} alt="Message Bell" /></div>
+                    <div className='ml'><img src={bell} alt="notification Bell" /></div>
+                    <div className='ml'><img src={passport} alt="profile Picture" /></div>
             </div>
         </div>
             <div className='d-flex justify-content-between'>

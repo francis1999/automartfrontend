@@ -12,6 +12,8 @@ import { useEffect } from 'react';
 import PrivateRoute from './includes/PrivateRoute';
 import PublicRoute from './includes/PublicRoute';
 import Singlecarpage from './components/singlecar';
+import Upload from './dashboard/upload';
+
 
 
 
@@ -34,6 +36,7 @@ function App() {
               <Route path="/dashboard/home" name="Home Page" element={<Home/>}/>
               <Route path="/dashboard/addcar" name="Add Car" element={<Addcar/>}/>
               <Route path="/dashboard/allcars" name="Home Page" element={<Viewcars/>}/>
+              <Route path="/dashboard/upload" name="" element={<Upload/>}/>
 
               <Route path="/dashboard/allcars/singlecar/:_id" element={<Singlecar/>} />
               <Route path="/singlecar/:_id" element={<Singlecarpage/>} />

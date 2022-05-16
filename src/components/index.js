@@ -44,21 +44,21 @@ const Index = (props) => {
             //setUser(response.data)
             if (response.data.message = "User Created Successfully") {
                 console.log(response)
-                alert("Account Created Successfully, Please Login!!!");
+                new Swal("Account Created Successfully, Please Login!!!");
                 window.location.reload();
             }else{
-                alert("");
+                new Swal("");
             }
         }).catch((err) => {
             if (err.response.message === "Email Already Exist" || err.response.status === 409) {
-                alert("Email has already been taken.");
+                 new Swal("Email has already been taken.");
             } else if(err.response.message === "Empty Input Fields!" || err.response.status === 500) {
-                alert("some of the input Field is Empty");
+                 new Swal("some of the input Field is Empty");
                 
             }else if(err.response.message === "Password is too short" || err.response.status === 417){
-                alert("Your Password is too short");
+                new Swal("Your Password is too short");
             }else if(err.response.message === "Invalid Email Name" || err.response.status === 400){
-                alert("Please Enter a Valid Email");
+                new Swal("Please Enter a Valid Email");
             }
         });
     }
@@ -66,7 +66,7 @@ const Index = (props) => {
 
     useEffect(()=>{
         let mounted=true
-        axios.get(`car/viewcars`).then((res)=>{
+        axios.get(`Getallcar`).then((res)=>{
             if(mounted){
                 if(res.data.message==="success"){
                     setCars(res.data.diplayallCar)
@@ -100,11 +100,11 @@ const Index = (props) => {
                     
                         <div className="card">
                         <div className="card-body">
-                       <Link to={`singlecar/${car._id}`}>{/*  <img src={`https://automartbackend.herokuapp.com/${car.carimage[0].path}`} alt="" className='w-100'/> */}</Link>
-                        {/* <div className="card-text text-success mt-4 fw-bold">&#8358; {car.price}.</div>
-                            <div className="card-title fw-bold" >{car.model.modelname}-{car.year.year}</div>
+                       <Link to={`singlecar/${car._id}`}> <img src={`https://automartbackend.herokuapp.com/${car.image[0].filePath}`} alt="" className='w-100'/></Link>
+                        <div className="card-text text-success mt-4 fw-bold">&#8358; {car.price}.</div>
+                            <div className="card-title fw-bold" >{car.modelname}-{car.year}</div>
                             <div className="card-text">{car.description}.</div>
-                            <a href="#" className="cartbutton"><img src={cart} alt="cart"/> Add to Cart</a> */}
+                            <a href="#" className="cartbutton"><img src={cart} alt="cart"/> Add to Cart</a>
                         </div>
                         </div>
                     
@@ -145,7 +145,7 @@ const Index = (props) => {
             <>
             <p className='text-center fs-5 fw-bold mt-4'>YOU ARE ONE STEP AWAY FROM OVER 250 000 VEHICLES AVAILABLE FOR SALE</p>   
                <div className='py-3'>
-                    <div className='container'>
+                    <div className='container h-2'>
                         <div className='row'>
                             {showallcars}
                         </div>

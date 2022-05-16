@@ -29,14 +29,17 @@ const [user, setUser] = useState(userLogin)
   const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
+
     axios.post('user/userlogin', user).then(response => {
         if (response.data.message === "You have successfully Logged in") {
             console.log(response.data);
             new Swal("success","You have successfully Logged in")
-            setUserSession(response.data.token,response.data.data);
-          
             handleClose()
+            setUserSession(response.data.token,response.data.data[0]);
+            //setUserSession(response.data.data);
             navigate('/dashboard/home');
+        }else{
+          alert("error")
         }
 
     })
@@ -48,6 +51,8 @@ const [user, setUser] = useState(userLogin)
                 navigate("index")
             }else if(error.response.message === "Empty Credentials Supplied!" || error.response.status === 500){
               new Swal("Empty Credential", error.response.message)
+            }else if(error.response.message === "Password Too Small" || error.response.status === 417){
+              new Swal("Invalid Password  or Password is too short", error.response.message)
             }
         })
 }

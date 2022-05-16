@@ -19,10 +19,10 @@ const Singlecarpage = () => {
 
     useEffect(()=>{
         let mounted=true
-        axios.get(`car/getcarbyid/${_id}`).then((res)=>{
+        axios.get(`getcarbyid/${_id}`).then((res)=>{
             if(mounted){
                 if(res.data.message==="success"){
-                    setCars(res.data.data)
+                    setCars(res.data.diplayallCar[0])
                     setLoading(false)
                 }
                 else if(res.data.status==="500"){
@@ -60,16 +60,16 @@ const Singlecarpage = () => {
                                 <div className="col-md-8">
                                         <div className="card">
                                         <div className="card-body">
-                                    <img src={`https://automartbackend.herokuapp.com/${cars.carimage[0].path}`} alt="" className='w-100'/>
+                                    <img src={`https://automartbackend.herokuapp.com/${cars.image[0].filePath}`} alt="" className='w-100'/>
                                         </div>
                                         </div>
                                     </div>
                                 <div className="col-md-4">
                                         <div className="card">
                                         <div className="card-body">
-                                    <img src={`https://automartbackend.herokuapp.com/${cars.carimage[0].path}`} alt="" className='w-100'/>
+                                    <img src={`https://automartbackend.herokuapp.com/${cars.image[0].filePath}`} alt="" className='w-100'/>
                                         <div className="card-text text-success mt-4 fw-bold">&#8358; {cars.price}.</div>
-                                            <div className="card-title fw-bold" >{cars.model.modelname}-{cars.year.year}</div>
+                                            <div className="card-title fw-bold" >{cars.modelname}-{cars.year}</div>
                                             <div className="card-text">{cars.description}.</div>
                                             <a href="#" className="cartbutton"><img src={cart} alt="cart"/> Add to Cart</a>
                                         </div>
@@ -84,28 +84,28 @@ const Singlecarpage = () => {
                                 <div className="col-md-3">
                                         <div className="card">
                                         <div className="card-body">
-                                    <img src={`https://automartbackend.herokuapp.com/${cars.carimage[0].path}`} alt="" className='w-100'/>
+                                    <img src={`https://automartbackend.herokuapp.com/${cars.image[1].filePath}`} alt="" className='w-100'/>
                                         </div>
                                         </div>
                                 </div>
                                 <div className="col-md-3">
                                         <div className="card">
                                         <div className="card-body">
-                                            <img src={`https://automartbackend.herokuapp.com/${cars.carimage[1].path}`} alt="" className='w-100'/>
+                                            <img src={`https://automartbackend.herokuapp.com/${cars.image[2].filePath}`} alt="" className='w-100'/>
                                         </div>
                                         </div>
                                 </div>
                                 <div className="col-md-3">
                                         <div className="card">
                                         <div className="card-body">
-                                    <img src={`https://automartbackend.herokuapp.com/${cars.carimage[2].path}`} alt="" className='w-100'/>
+                                    <img src={`https://automartbackend.herokuapp.com/${cars.image[3].filePath}`} alt="" className='w-100'/>
                                         </div>
                                         </div>
                                 </div>
                                 <div className="col-md-3">
                                         <div className="card">
                                         <div className="card-body">
-                                            <img src={`https://automartbackend.herokuapp.com/${cars.carimage[3].path}`} alt="" className='w-100'/>
+                                            <img src={`https://automartbackend.herokuapp.com/${cars.image[0].filePath}`} alt="" className='w-100'/>
                                         </div>
                                         </div>
                                 </div>
